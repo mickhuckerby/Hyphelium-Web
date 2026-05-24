@@ -6,8 +6,7 @@ if(window._hyphaRunning)return;
 window._hyphaRunning=true;
 setTimeout(()=>{window._hyphaRunning=false;},5000);
 
-const STORAGE_URL='hypha-url';
-const STORAGE_KEY='hypha-key';
+// Authentication via JWT token
 const PLATFORMS={'claude.ai':'Claude','chat.openai.com':'ChatGPT','chatgpt.com':'ChatGPT','gemini.google.com':'Gemini','copilot.microsoft.com':'Copilot','perplexity.ai':'Perplexity'};
 const hostname=location.hostname;
 const matchKey=Object.keys(PLATFORMS).find(k=>hostname.includes(k));
@@ -59,9 +58,9 @@ function snapshotBoundary(){
 
 async function save(record){
   try{
-    const r=await fetch(supaUrl.replace(/\/+$/,'')+'/rest/v1/hyphaelium_captures',{
+    const r=await fetch('https://hypha-server.onrender.com/save',{
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':supaKey,'Authorization':'Bearer '+supaKey,'Prefer':'return=minimal'},
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
       body:JSON.stringify(record)
     });
     if(r.ok||r.status===201){
@@ -118,3 +117,6 @@ function showToast(msg,type){
   setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';setTimeout(()=>t.remove(),250);},type==='saving'?30000:3500);
 }
 })();
+
+
+
