@@ -1005,7 +1005,7 @@ footer {
         <option value="canopy" selected>Canopy — £7/month (recommended)</option>
         <option value="forest">Forest — £18/month</option>
       </select>
-      <button type="submit" class="form-submit" id="submitBtn">Create My Vault</button>
+      <button type="button" class="form-submit" id="submitBtn" onclick="handleSignup()">Create My Vault</button>
       <div class="form-msg" id="formMsg"></div>
     </form>
   </div>
@@ -1039,9 +1039,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // ── SIGNUP FORM ──
 const API = 'https://hypha-server.onrender.com';
 
-document.getElementById('signupForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
+async function handleSignup() {
   const btn = document.getElementById('submitBtn');
   const msg = document.getElementById('formMsg');
 
@@ -1079,9 +1077,8 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     btn.disabled = false;
     btn.textContent = 'Create My Vault';
   }
-});
+}
 </script>
 
 </body>
 </html>
-
